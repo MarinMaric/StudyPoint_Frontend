@@ -20,8 +20,10 @@ export class FileUploadService {
     var token = tokenTest !== null ? tokenTest : '{}';
 
     const formData = new FormData();
-    if(courseId!=undefined)
+    if(courseId!=undefined){
+      courseId=0;
       formData.append("courseId", courseId);
+    }
     formData.append("title", title);
     formData.append("description", description);
 
@@ -29,7 +31,7 @@ export class FileUploadService {
       formData.append("image", file, file.name);
 
     let headers = new HttpHeaders({
-      'MojAutentifikacijaToken':token,
+      'MojAutentifikacijaToken':token
     });
     let options = { headers: headers };
     return this.http.post<string>(MyConfig.webAppUrl+"/Teacher/UploadCourse", formData, options);
