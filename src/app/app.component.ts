@@ -6,6 +6,7 @@ import {LoginVM} from "./LoginVM";
 import {AutentifikacijaLoginResultVM} from "./AutentifikacijaLoginResultVM";
 import {RegisterVM} from "./RegisterVM";
 import {RegisterResultVM} from "./RegisterResultVM";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -69,10 +70,46 @@ export class AppComponent {
     this.showLogin=true;
     this.showRegister=false;
   }
-  Register(){
-    if(!this.ValidateRegistration())
-      return;
 
+  ValidateRegistration(){
+    if(!this.BaseChecks()){
+      alert("Failed validation");
+      return;
+    }
+
+    const headerDict = {
+      'Content-Type': 'application/json'
+    };
+    const requestOptions={
+      headers:new HttpHeaders(headerDict)
+    };
+    var body = JSON.stringify(this.registration);
+    var error=0;
+
+    this.http.post<RegisterResultVM>(MyConfig.webAppUrl+'/Autentifikacija/CheckUser', body, requestOptions).subscribe((result:RegisterResultVM)=>{
+      if(result.usernameMessage!="" && result.usernameMessage!=null){
+        this.result.usernameMessage=result.usernameMessage;
+        error++;
+      }
+      else if(result.emailMessage!="" && result.emailMessage!=null){
+        this.result.usernameMessage=result.emailMessage;
+        error++;
+      }
+      if(error>0){
+        return;
+      }else{
+        this.result.usernameMessage="";
+        this.result.passwordMessage="";
+        this.result.confirmPasswordMessage="";
+        this.result.emailMessage="";
+
+        this.Register();
+      }
+    },error => {
+      return;
+    });
+  }
+  Register(){
     var url = MyConfig.webAppUrl+"/Autentifikacija/Register";
     const headerDict = {
       'Content-Type': 'application/json'
@@ -89,6 +126,7 @@ export class AppComponent {
       alert("Fail");
     });
   }
+
   Logout(){
     localStorage.clear();
     this.showRouting=false;
@@ -97,43 +135,6 @@ export class AppComponent {
     this.showRouting=false;
   }
 
-  ValidateRegistration():boolean{
-    if(!this.BaseChecks())
-      return false;
-
-    var foundError="";
-
-    const headerDict = {
-      'Content-Type': 'application/json'
-    };
-    const requestOptions={
-      headers:new HttpHeaders(headerDict)
-    };
-    var body = JSON.stringify(this.registration);
-    var error=0;
-    this.http.post<RegisterResultVM>(MyConfig.webAppUrl+'/Autentifikacija/CheckUser', body, requestOptions).subscribe((result:RegisterResultVM)=>{
-      if(result.usernameMessage!="" && result.usernameMessage!=null){
-        this.result.usernameMessage=result.usernameMessage;
-        error++;
-      }
-      else if(result.emailMessage!="" && result.emailMessage!=null){
-        this.result.usernameMessage=result.emailMessage;
-        error++;
-      }
-      if(error>0){
-        return false;
-      }else{
-        this.result.usernameMessage="";
-        this.result.passwordMessage="";
-        this.result.confirmPasswordMessage="";
-        this.result.emailMessage="";
-        return true;
-      }
-    },error => {
-      return false;
-    });
-    return false;
-  }
   BaseChecks():boolean{
     var error=0;
     if(this.registration.username==null){
@@ -161,7 +162,7 @@ export class AppComponent {
       this.result.emailMessage="This field is required.";
       error++;
     }else{
-      var regexp = new RegExp('.+@.+/.com');
+      var regexp = new RegExp('.+@.+\.com');
       if(!regexp.test(this.registration.email)){
         this.result.emailMessage="E-mail address is invalid.";
         error++;

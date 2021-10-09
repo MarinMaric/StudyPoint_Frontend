@@ -1,0 +1,12 @@
+<form>
+  <label>Title</label>
+  <input class="form-control" type="text" [(ngModel)]="title" name="naziv" required="true"/>
+  <span *ngIf="showError==true && (title==undefined ||title =='')" class="text-danger">Required field</span><br>
+  <label>Description</label>
+  <input class="form-control" type="text" [(ngModel)]="description" name="opis" required="true" />
+  <span *ngIf="showError==true && (description==undefined ||description =='')" class="text-danger">Required field</span><br>
+  <button (click)="onUpload()"
+          class="btn btn-success">
+    Upload
+  </button>
+</form>

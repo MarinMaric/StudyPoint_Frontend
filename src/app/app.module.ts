@@ -9,19 +9,22 @@ import { ViewCoursesComponent } from './TeacherComponents/view-courses/view-cour
 import { EditCourseComponent } from './TeacherComponents/edit-course/edit-course.component';
 import { CourseDetailsComponent } from './TeacherComponents/course-details/course-details.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { UploadCourseComponent } from './TeacherComponents/upload-course/upload-course.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ViewCoursesComponent,
     EditCourseComponent,
-    CourseDetailsComponent
+    CourseDetailsComponent,
+    UploadCourseComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot([
+      {path: 'upload-course', component: UploadCourseComponent},
       {path: 'view-courses', component: ViewCoursesComponent},
       {path: 'edit-course', component: EditCourseComponent},
       {path: 'course-details', component: CourseDetailsComponent}

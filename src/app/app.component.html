@@ -16,7 +16,7 @@
 
   <button (click)="RegistrationForm()" *ngIf="showLogin">Don't have an account?</button>
 
-  <form method="post"  (ngSubmit)="Register()" *ngIf="showRegister">
+  <form method="post"  (ngSubmit)="ValidateRegistration()" *ngIf="showRegister">
     <label>Username</label>
     <input type="text" class="form-control" [(ngModel)]="registration.username"  name="username"/>
     <span class="text-danger" *ngIf="result.usernameMessage!=''">{{result.usernameMessage}}</span><br>
