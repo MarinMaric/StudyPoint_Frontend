@@ -1,0 +1,26 @@
+Filter course title: <input [(ngModel)]="filterNaziv" />
+<button (click)="SearchButton()">Search</button>
+
+<div>
+  <table>
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let i of filterCourses()">
+      <td>{{i.title}}</td>
+      <td>
+        <a class="button" [routerLink]="['/course-details', i.courseId]">Details</a> |
+        <button [routerLink]="['/edit-course', i.courseId]">Edit</button>
+        <button (click)="DeleteCourse(i)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <ngb-pagination [collectionSize]="colSize" [pageSize]="itemsPerPage" [(page)]="currentPage" [maxSize]="colSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+  </ngb-pagination>
+</div>
