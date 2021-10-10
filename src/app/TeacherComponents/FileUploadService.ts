@@ -21,14 +21,16 @@ export class FileUploadService {
 
     const formData = new FormData();
     if(courseId!=undefined){
-      courseId=0;
       formData.append("courseId", courseId);
+    }else{
+      courseId=0;
     }
     formData.append("title", title);
     formData.append("description", description);
 
-    if(file!=undefined)
+    if(file!=undefined){
       formData.append("image", file, file.name);
+    }
 
     let headers = new HttpHeaders({
       'MojAutentifikacijaToken':token
