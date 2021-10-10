@@ -26,8 +26,8 @@ import { UploadCourseComponent } from './TeacherComponents/upload-course/upload-
     RouterModule.forRoot([
       {path: 'upload-course', component: UploadCourseComponent},
       {path: 'view-courses', component: ViewCoursesComponent},
-      {path: 'edit-course', component: EditCourseComponent},
-      {path: 'course-details', component: CourseDetailsComponent}
+      {path: 'edit-course/:courseID', component: EditCourseComponent},
+      {path: 'course-details/:courseID', component: CourseDetailsComponent}
     ]),
     NgbModule
   ],
