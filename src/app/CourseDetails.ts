@@ -4,5 +4,6 @@ export class CourseDetailsVM{
   imageDisplay:string;
   image:File;
   imageBlob:Blob;
+  imageFromBlob:any;
   description:string;
 }

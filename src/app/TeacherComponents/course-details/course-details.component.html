@@ -1,1 +1,4 @@
-<p>course-details works!</p>
+<h1 *ngIf="courseDetails.title!=undefined">{{courseDetails.title}}</h1>
+<img *ngIf="courseDetails.imageDisplay!=undefined" src="{{courseDetails.imageFromBlob}}" width="500px" height="auto"/>
+<p *ngIf="courseDetails.description!=undefined"><b>Description: </b> {{courseDetails.description}}</p>
+
