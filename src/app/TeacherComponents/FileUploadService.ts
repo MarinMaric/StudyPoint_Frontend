@@ -45,7 +45,7 @@ export class FileUploadService {
 
     const formData = new FormData();
     if(lessonId!=undefined){
-      formData.append("lessonId", lessonId);
+      formData.append("id", lessonId);
     }else{
       lessonId=0;
     }
