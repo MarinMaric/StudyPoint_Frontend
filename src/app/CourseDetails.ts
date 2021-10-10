@@ -1,3 +1,5 @@
+import {LessonBriefVM} from "./LessonBriefVM";
+
 export class CourseDetailsVM{
   courseId:number;
   title:string;
@@ -6,4 +8,5 @@ export class CourseDetailsVM{
   imageBlob:Blob;
   imageFromBlob:any;
   description:string;
+  lessons:LessonBriefVM[];
 }

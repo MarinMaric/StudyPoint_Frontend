@@ -1,0 +1,17 @@
+<form>
+  <label>Title</label>
+  <input class="form-control" type="text" [(ngModel)]="title" name="naziv" required="true"/>
+  <span *ngIf="showError==true && (title==undefined ||title =='')" class="text-danger">Required field</span><br>
+  <label>Description</label>
+  <input class="form-control" type="text" [(ngModel)]="description" name="opis" required="true" />
+  <span *ngIf="showError==true && (description==undefined ||description =='')" class="text-danger">Required field</span><br>
+
+  <input type="file" class="file-input" (change)="imageUpload($event)" name="file">
+  <span *ngIf="showError==true && file!=undefined" class="text-danger">Required field</span><br>
+  <br>
+
+  <button (click)="onUpload()"
+          class="btn btn-success">
+    Upload
+  </button>
+</form>

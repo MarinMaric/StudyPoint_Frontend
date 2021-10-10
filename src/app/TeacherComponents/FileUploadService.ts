@@ -39,4 +39,28 @@ export class FileUploadService {
     return this.http.post<string>(MyConfig.webAppUrl+"/Teacher/UploadCourse", formData, options);
   }
 
+  UploadLesson(lessonId, courseId, title, description, file):Observable<any> {
+    var tokenTest = localStorage.getItem('loginToken');
+    var token = tokenTest !== null ? tokenTest : '{}';
+
+    const formData = new FormData();
+    if(lessonId!=undefined){
+      formData.append("lessonId", lessonId);
+    }else{
+      lessonId=0;
+    }
+    formData.append("courseId", courseId);
+    formData.append("title", title);
+    formData.append("description", description);
+
+    if(file!=undefined){
+      formData.append("video", file, file.name);
+    }
+
+    let headers = new HttpHeaders({
+      'MojAutentifikacijaToken':token
+    });
+    let options = { headers: headers };
+    return this.http.post<string>(MyConfig.webAppUrl+"/Lesson/UploadLesson", formData, options);
+  }
 }

@@ -10,6 +10,7 @@ import { EditCourseComponent } from './TeacherComponents/edit-course/edit-course
 import { CourseDetailsComponent } from './TeacherComponents/course-details/course-details.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { UploadCourseComponent } from './TeacherComponents/upload-course/upload-course.component';
+import { UploadLessonComponent } from './TeacherComponents/upload-lesson/upload-lesson.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { UploadCourseComponent } from './TeacherComponents/upload-course/upload-
     ViewCoursesComponent,
     EditCourseComponent,
     CourseDetailsComponent,
-    UploadCourseComponent
+    UploadCourseComponent,
+    UploadLessonComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,8 @@ import { UploadCourseComponent } from './TeacherComponents/upload-course/upload-
       {path: 'upload-course', component: UploadCourseComponent},
       {path: 'view-courses', component: ViewCoursesComponent},
       {path: 'edit-course/:courseID', component: EditCourseComponent},
-      {path: 'course-details/:courseID', component: CourseDetailsComponent}
+      {path: 'course-details/:courseID', component: CourseDetailsComponent},
+      {path: 'upload-lesson/:courseID', component: UploadLessonComponent}
     ]),
     NgbModule
   ],
