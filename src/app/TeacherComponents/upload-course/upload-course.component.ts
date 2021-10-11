@@ -43,12 +43,15 @@ export class UploadCourseComponent implements OnInit {
     if(!this.Validate()){
       this.fileUploadService.UploadCourse(null, this.title, this.description, this.file).subscribe(
         (event: any) => {
+          alert("Course uploaded!");
+
           if (typeof (event) === 'object') {
 
             // Short link via api response
             this.shortLink = event.link;
 
             this.loading = false; // Flag variable
+
           }
         },
         error => {
