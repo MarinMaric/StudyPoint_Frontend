@@ -28,6 +28,7 @@ export class EditLessonComponent implements OnInit {
   uploadProgress:number;
   uploadSub: Subscription;
   progressNum:number;
+  appFilePath:string=MyConfig.appFilesUrl;
 
   constructor(private http:HttpClient, private route:ActivatedRoute, private fileUploadService: FileUploadService) {
   }

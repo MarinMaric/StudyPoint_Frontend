@@ -7,7 +7,7 @@
   <span *ngIf="showError==true && (description==undefined ||description =='')" class="text-danger">Required field</span><br>
 
   <video *ngIf="videoDisplay!=undefined"  width="500" controls>
-    <source src="{{videoDisplay}}" type="{{videoType}}"/>
+    <source src="{{appFilePath + videoDisplay}}" type="{{videoType}}"/>
   </video>
   <br>
   <br>

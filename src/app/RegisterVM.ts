@@ -3,4 +3,5 @@ export class RegisterVM{
   password:string;
   confirmpassword:string;
   email:string;
+  type:string;
 }

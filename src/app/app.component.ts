@@ -7,6 +7,7 @@ import {AutentifikacijaLoginResultVM} from "./AutentifikacijaLoginResultVM";
 import {RegisterVM} from "./RegisterVM";
 import {RegisterResultVM} from "./RegisterResultVM";
 import {Subscription} from "rxjs";
+import {AccountType} from "./AccountType";
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ export class AppComponent {
   showLogin:boolean=false;
   showRegister:boolean=true;
   adminMode:boolean;
+  accountTypes:AccountType[];
 
   result:RegisterResultVM;
 
@@ -31,6 +33,7 @@ export class AppComponent {
     this.user.password="";
 
     this.registration=new RegisterVM();
+    this.registration.type="2";
     this.showLogin=true;
     this.showRegister=false;
     var token=localStorage.getItem("loginToken");
@@ -42,12 +45,13 @@ export class AppComponent {
         this.user.type=testType;
     }
 
-
     this.result=new RegisterResultVM();
     this.result.usernameMessage="";
     this.result.passwordMessage="";
     this.result.confirmPasswordMessage="";
     this.result.emailMessage="";
+
+    this.GetAccountTypes();
   }
   Show(){
     this.showRouting=true;
@@ -145,48 +149,53 @@ export class AppComponent {
     this.showRouting=false;
   }
 
-  BaseChecks():boolean{
-    var error=0;
-    if(this.registration.username==null){
-      this.result.usernameMessage="This field is required.";
+  BaseChecks():boolean {
+    var error = 0;
+    if (this.registration.username == null) {
+      this.result.usernameMessage = "This field is required.";
       error++;
-    }else if(this.registration.username.length<3){
-      this.result.usernameMessage="Username must be at least 3 characters long.";
-      error++;
-    }
-
-    if(this.registration.password==null){
-      this.result.passwordMessage="This field is required.";
-      error++;
-    }else if(this.registration.password.length<6){
-      this.result.passwordMessage="Username must be at least 6 characters long.";
+    } else if (this.registration.username.length < 3) {
+      this.result.usernameMessage = "Username must be at least 3 characters long.";
       error++;
     }
 
-    if(this.registration.confirmpassword!=this.registration.password){
-      this.result.confirmPasswordMessage="Passwords don't match.";
+    if (this.registration.password == null) {
+      this.result.passwordMessage = "This field is required.";
+      error++;
+    } else if (this.registration.password.length < 6) {
+      this.result.passwordMessage = "Username must be at least 6 characters long.";
       error++;
     }
 
-    if(this.registration.email==null){
-      this.result.emailMessage="This field is required.";
+    if (this.registration.confirmpassword != this.registration.password) {
+      this.result.confirmPasswordMessage = "Passwords don't match.";
       error++;
-    }else{
+    }
+
+    if (this.registration.email == null) {
+      this.result.emailMessage = "This field is required.";
+      error++;
+    } else {
       var regexp = new RegExp('.+@.+\.com');
-      if(!regexp.test(this.registration.email)){
-        this.result.emailMessage="E-mail address is invalid.";
+      if (!regexp.test(this.registration.email)) {
+        this.result.emailMessage = "E-mail address is invalid.";
         error++;
       }
     }
 
-    if(error>0)
+    if (error > 0)
       return false;
-    else{
-      this.result.usernameMessage="";
-      this.result.passwordMessage="";
-      this.result.confirmPasswordMessage="";
-      this.result.emailMessage="";
+    else {
+      this.result.usernameMessage = "";
+      this.result.passwordMessage = "";
+      this.result.confirmPasswordMessage = "";
+      this.result.emailMessage = "";
       return true;
     }
+  }
+  GetAccountTypes(){
+    this.http.get<AccountType[]>(MyConfig.webAppUrl+'/Autentifikacija/GetAccountTypes').subscribe((result:AccountType[])=>{
+      this.accountTypes=result;
+    });
   }
 }
