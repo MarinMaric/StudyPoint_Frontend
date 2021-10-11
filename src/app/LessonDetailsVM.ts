@@ -4,8 +4,7 @@ export class LessonDetailsVM{
   description:string;
   videoDisplay:string;
   video:File;
-  videoBlob:Blob;
-  videoFromBlob:any;
+  videoType:string;
   materials:File;
   courseId:number;
 }

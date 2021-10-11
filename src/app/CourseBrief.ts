@@ -3,4 +3,5 @@ export class CourseBrief{
   title:string;
   image:string;
   description:string;
+  adminMode:boolean;
 }

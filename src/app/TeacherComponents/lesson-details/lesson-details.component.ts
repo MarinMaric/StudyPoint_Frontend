@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {FileUploadService} from "../FileUploadService";
 import {CourseDetailsVM} from "../../CourseDetails";
@@ -26,7 +26,17 @@ export class LessonDetailsComponent implements OnInit {
     this.LessonDetails();
   }
   LessonDetails(){
-    this.http.get<LessonDetailsVM>(MyConfig.webAppUrl+'/Lesson/LessonDetails/'+this.lessonID).subscribe((result:LessonDetailsVM)=>{
+    var tokenTest = localStorage.getItem('loginToken');
+    var token = tokenTest !== null ? tokenTest : '{}';
+    const headerDict = {
+      'Content-Type': 'application/json',
+      'MojAutentifikacijaToken': token
+    };
+
+    const requestOptions = {
+      headers: new HttpHeaders (headerDict),
+    };
+    this.http.get<LessonDetailsVM>(MyConfig.webAppUrl+'/Lesson/LessonDetails/'+this.lessonID, requestOptions).subscribe((result:LessonDetailsVM)=>{
       this.lessonDetails=result;
 
       if(this.lessonDetails.videoDisplay!=undefined){

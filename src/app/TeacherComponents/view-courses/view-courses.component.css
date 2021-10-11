@@ -1,0 +1,11 @@
+.text-wrapper{
+word-wrap:break-word;
+}
+
+#courses-wrapper{
+  margin-top: 20px;
+}
+
+.button{
+  margin-left: 5px;
+}

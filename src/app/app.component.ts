@@ -56,6 +56,7 @@ export class AppComponent {
     this.http.post<AutentifikacijaLoginResultVM>(url, body, requestOptions).subscribe((result)=>{
       localStorage.setItem("loginToken", result.tokenString);
       this.showRouting=true;
+      this.user.type=result.type;
     },error=>{
       localStorage.clear();
       this.showRouting=false;

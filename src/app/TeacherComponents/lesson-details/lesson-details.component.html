@@ -1,5 +1,8 @@
-<h1 *ngIf="lessonDetails.title!=undefined">{{lessonDetails.title}}</h1>
-<video *ngIf="lessonDetails.videoDisplay!=undefined"  width="500" controls>
+<div id="wrapper">
+  <h1 *ngIf="lessonDetails.title!=undefined">{{lessonDetails.title}}</h1>
+  <video *ngIf="lessonDetails.videoDisplay!=undefined"  width="500" controls>
     <source src="{{lessonDetails.videoDisplay}}" type="video/mp4"/>
-</video>
-<p *ngIf="lessonDetails.description!=undefined"><b>Description: </b> {{lessonDetails.description}}</p>
+  </video>
+  <p *ngIf="lessonDetails.description!=undefined"><b>Description: </b> {{lessonDetails.description}}</p>
+</div>
+

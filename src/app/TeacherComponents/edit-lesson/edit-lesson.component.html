@@ -7,8 +7,10 @@
   <span *ngIf="showError==true && (description==undefined ||description =='')" class="text-danger">Required field</span><br>
 
   <video *ngIf="videoDisplay!=undefined"  width="500" controls>
-    <source src="{{videoDisplay}}" type="video/mp4"/>
+    <source src="{{videoDisplay}}" type="{{videoType}}"/>
   </video>
+  <br>
+  <br>
   <input type="file" class="file-input" (change)="imageUpload($event)" name="file">
   <span *ngIf="showError==true && file!=undefined" class="text-danger">Required field</span><br>
   <br>

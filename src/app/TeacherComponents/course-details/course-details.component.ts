@@ -19,6 +19,7 @@ export class CourseDetailsComponent implements OnInit {
   colSize:number;
   itemsPerPage:number=5;
   filterNaziv:string="";
+  appFilePath:string=MyConfig.appFilesUrl;
 
   constructor(private http:HttpClient, private route:ActivatedRoute, private fileUploadService: FileUploadService) {
   }
@@ -30,37 +31,21 @@ export class CourseDetailsComponent implements OnInit {
     this.CourseDetails();
   }
   CourseDetails(){
-    this.http.get<CourseDetailsVM>(MyConfig.webAppUrl+'/Teacher/CourseDetails/'+this.courseID).subscribe((result:CourseDetailsVM)=>{
+    var tokenTest = localStorage.getItem('loginToken');
+    var token = tokenTest !== null ? tokenTest : '{}';
+    const headerDict = {
+      'Content-Type': 'application/json',
+      'MojAutentifikacijaToken': token
+    };
+
+    const requestOptions = {
+      headers: new HttpHeaders (headerDict),
+    };
+    this.http.get<CourseDetailsVM>(MyConfig.webAppUrl+'/Teacher/CourseDetails/'+this.courseID, requestOptions).subscribe((result:CourseDetailsVM)=>{
       this.courseDetails=result;
 
-      if(this.courseDetails.imageDisplay!=undefined){
-        this.loadImage();
-      }
       this.ViewLessons();
     });
-  }
-
-  loadImage() {
-    this.loginImg().subscribe(result => {
-      this.courseDetails.imageBlob = result;
-      this.createImageFromBlob(this.courseDetails.imageBlob);
-    });
-  }
-
-  loginImg() {
-    const url = MyConfig.webAppUrl+"/Teacher/LoadImage?courseId="+this.courseID;
-    return this.http.get(url, { responseType: 'blob' });
-  }
-
-  createImageFromBlob(image: Blob) {
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-      this.courseDetails.imageFromBlob = reader.result;
-    }, false);
-
-    if (image) {
-      reader.readAsDataURL(image);
-    }
   }
 
   ViewLessons(){

@@ -15,6 +15,7 @@ export class ViewCoursesComponent implements OnInit {
   colSize:number;
   itemsPerPage:number=5;
   filterNaziv:string="";
+  appFilePath:string=MyConfig.appFilesUrl;
 
   constructor(private http:HttpClient) { }
 

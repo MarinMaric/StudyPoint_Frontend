@@ -9,4 +9,5 @@ export class CourseDetailsVM{
   imageFromBlob:any;
   description:string;
   lessons:LessonBriefVM[];
+  adminMode:boolean;
 }

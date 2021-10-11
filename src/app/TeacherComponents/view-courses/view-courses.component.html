@@ -1,21 +1,27 @@
 Filter course title: <input [(ngModel)]="filterNaziv" />
-<button (click)="SearchButton()">Search</button>
+<button (click)="SearchButton()" class="button btn btn-primary">Search</button>
 
-<div>
-  <table>
-    <thead>
-    <tr>
-      <th>Title</th>
-      <th>Action</th>
-    </tr>
-    </thead>
+<div id="courses-wrapper">
+  <table class="table table-striped table-bordered">
     <tbody>
     <tr *ngFor="let i of filterCourses()">
-      <td>{{i.title}}</td>
       <td>
-        <a class="button" [routerLink]="['/course-details', i.courseId]">Details</a> |
-        <button [routerLink]="['/edit-course', i.courseId]">Edit</button>
-        <button (click)="DeleteCourse(i)">Delete</button>
+        <table class="table-borderless table-light" width="100%">
+          <tr>
+            <td width="300px">
+              <img src="{{appFilePath+i.image}}" width="300px" height="auto">
+            </td>
+            <td class="text-wrapper" width="500px">
+              <h3>{{i.title}}</h3>
+              <p>{{i.description}}</p>
+            </td>
+            <td>
+              <a class="button" [routerLink]="['/course-details', i.courseId]" style="margin-right: 5px">Details</a>
+              <button *ngIf="i.adminMode==true" [routerLink]="['/edit-course', i.courseId]" class="button btn btn-info">Edit</button>
+              <button *ngIf="i.adminMode==true" (click)="DeleteCourse(i)" class="button btn btn-danger">Delete</button>
+            </td>
+          </tr>
+        </table>
       </td>
     </tr>
     </tbody>

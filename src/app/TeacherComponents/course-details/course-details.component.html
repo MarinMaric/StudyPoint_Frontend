@@ -1,13 +1,25 @@
-<h1 *ngIf="courseDetails.title!=undefined">{{courseDetails.title}}</h1>
-<img *ngIf="courseDetails.imageDisplay!=undefined" src="{{courseDetails.imageFromBlob}}" width="500px" height="auto"/>
-<p *ngIf="courseDetails.description!=undefined"><b>Description: </b> {{courseDetails.description}}</p>
+<div  id="mainContainer">
+  <table>
+    <tr>
+      <td>
+        <img *ngIf="courseDetails.imageDisplay!=undefined" src="{{appFilePath + courseDetails.imageDisplay}}" width="500px" height="auto"/>
+      </td>
+      <td id="descriptionContent">
+        <h1 *ngIf="courseDetails.title!=undefined">{{courseDetails.title}}</h1>
+        <br>
+        <p *ngIf="courseDetails.description!=undefined"><b>Description: </b> {{courseDetails.description}}</p>
+      </td>
+    </tr>
+  </table>
+
 <br>
 
-Filter lesson title: <input [(ngModel)]="filterNaziv" />
-<button (click)="SearchButton()">Search</button><button [routerLink]="['/upload-lesson', this.courseID]">Add new lesson</button>
+Filter lesson title: <input class="form-control-sm" [(ngModel)]="filterNaziv"/>
+<button class="btn btn-primary"(click)="SearchButton()">Search</button>
+  <button id="addNewBtn" class="btn btn-primary" *ngIf="courseDetails.adminMode==true" [routerLink]="['/upload-lesson', this.courseID]">Add new lesson</button>
 
-<div>
-  <table>
+<div id="lessonsContainer">
+  <table class="table table-bordered table-striped">
     <thead>
     <tr>
       <th>Title</th>
@@ -17,10 +29,10 @@ Filter lesson title: <input [(ngModel)]="filterNaziv" />
     <tbody>
     <tr *ngFor="let i of filterLessons()">
       <td>{{i.title}}</td>
-      <td>
-        <a class="button" [routerLink]="['/lesson-details', i.lessonId]">Details</a> |
-        <button [routerLink]="['/edit-lesson', i.lessonId]">Edit</button>
-        <button (click)="DeleteLesson(i)">Delete</button>
+      <td style="float:right">
+        <a class="button btn btn-primary" [routerLink]="['/lesson-details', i.lessonId]">Details</a> |
+        <button class="btn btn-info" *ngIf="courseDetails.adminMode==true" [routerLink]="['/edit-lesson', i.lessonId]">Edit</button>
+        <button class="btn btn-danger" *ngIf="courseDetails.adminMode==true" (click)="DeleteLesson(i)">Delete</button>
       </td>
     </tr>
     </tbody>
@@ -28,5 +40,6 @@ Filter lesson title: <input [(ngModel)]="filterNaziv" />
 
   <ngb-pagination [collectionSize]="colSize" [pageSize]="itemsPerPage" [(page)]="currentPage" [maxSize]="colSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
   </ngb-pagination>
+</div>
 </div>
 

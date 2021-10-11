@@ -20,9 +20,9 @@ export class EditLessonComponent implements OnInit {
   title:string;
   description:string;
   videoDisplay:string;
+  videoType:string;
   courseID:number;
   showError:boolean=false;
-
   constructor(private http:HttpClient, private route:ActivatedRoute, private fileUploadService: FileUploadService) {
   }
 
@@ -60,6 +60,7 @@ export class EditLessonComponent implements OnInit {
       this.description=result.description;
       this.videoDisplay=result.videoDisplay;
       this.courseID=result.courseId;
+      this.videoType=result.videoType;
     });
   }
 
