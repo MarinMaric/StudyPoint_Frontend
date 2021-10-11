@@ -21,3 +21,8 @@ button{
   position:relative;
   float:right;
 }
+
+#returnContainer, subscribeContainer{
+  position:relative;
+  text-align:right;
+}

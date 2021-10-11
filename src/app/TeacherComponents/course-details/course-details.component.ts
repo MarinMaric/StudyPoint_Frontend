@@ -5,6 +5,7 @@ import {CourseDetailsVM} from "../../CourseDetails";
 import {MyConfig} from "../../MyConfig";
 import { FileUploadService } from '../FileUploadService';
 import {LessonBriefVM} from "../../LessonBriefVM";
+import {LessonDetailsVM} from "../../LessonDetailsVM";
 
 @Component({
   selector: 'app-course-details',
@@ -20,6 +21,7 @@ export class CourseDetailsComponent implements OnInit {
   itemsPerPage:number=5;
   filterNaziv:string="";
   appFilePath:string=MyConfig.appFilesUrl;
+  progress:LessonBriefVM;
 
   constructor(private http:HttpClient, private route:ActivatedRoute, private fileUploadService: FileUploadService) {
   }
@@ -38,9 +40,14 @@ export class CourseDetailsComponent implements OnInit {
       'MojAutentifikacijaToken': token
     };
 
+
     const requestOptions = {
       headers: new HttpHeaders (headerDict),
     };
+    this.http.get<LessonBriefVM>(MyConfig.webAppUrl+'/Student/GetProgress/?courseId='+this.courseID, requestOptions).subscribe((result)=>{
+      this.progress=result;
+    });
+
     this.http.get<CourseDetailsVM>(MyConfig.webAppUrl+'/Teacher/CourseDetails/'+this.courseID, requestOptions).subscribe((result:CourseDetailsVM)=>{
       this.courseDetails=result;
 
@@ -93,6 +100,25 @@ export class CourseDetailsComponent implements OnInit {
     this.http.delete(MyConfig.webAppUrl+'/Lesson/DeleteLesson?lessonId='+i.lessonId).subscribe((result)=>{
       var indexOf=this.courseDetails.lessons.indexOf(i);
       this.courseDetails.lessons.splice(indexOf, 1);
+    });
+  }
+
+  SetProgress(lessonId:number){
+    var tokenTest = localStorage.getItem('loginToken');
+    var token = tokenTest !== null ? tokenTest : '{}';
+    const headerDict = {
+      'Content-Type': 'application/json',
+      'MojAutentifikacijaToken': token
+    };
+    const requestOptions = {
+      headers: new HttpHeaders (headerDict),
+    };
+
+    this.http.post<LessonBriefVM>(MyConfig.webAppUrl+'/Student/SetProgress?lessonId='+lessonId,null,requestOptions).subscribe((result)=>{
+      this.progress=result;
+      alert("Course progress saved.");
+    },error=>{
+      alert("Something went wrong");
     });
   }
 }

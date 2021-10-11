@@ -14,6 +14,20 @@
 
 <br>
 
+
+  <div id="returnContainer" *ngIf="progress!=undefined">
+    <a [routerLink]="['/lesson-details', progress.lessonId]">
+      <h2>Jump right back in!</h2>
+      <h3>{{progress.title}}</h3>
+      <p>{{progress.description}}</p>
+    </a>
+  </div>
+  <div id="subscribeContainer" *ngIf="progress==undefined && courseDetails.adminMode==false">
+    <button (click)="SetProgress(courseDetails.lessons[0].lessonId)" class="btn btn-primary">Follow this Course</button>
+    <p>By following a course you can have a reminder which lesson you were on before leaving so you can always pick it back up easily.</p>
+  </div>
+<br>
+
 Filter lesson title: <input class="form-control-sm" [(ngModel)]="filterNaziv"/>
 <button class="btn btn-primary"(click)="SearchButton()">Search</button>
   <button id="addNewBtn" class="btn btn-primary" *ngIf="courseDetails.adminMode==true" [routerLink]="['/upload-lesson', this.courseID]">Add new lesson</button>

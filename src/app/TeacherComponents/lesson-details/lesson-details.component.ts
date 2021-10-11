@@ -45,4 +45,22 @@ export class LessonDetailsComponent implements OnInit {
       }
     });
   }
+  SetProgress(){
+    var tokenTest = localStorage.getItem('loginToken');
+    var token = tokenTest !== null ? tokenTest : '{}';
+    const headerDict = {
+      'Content-Type': 'application/json',
+      'MojAutentifikacijaToken': token
+    };
+    const requestOptions = {
+      headers: new HttpHeaders (headerDict),
+    };
+
+    this.http.get(MyConfig.webAppUrl+'/Student/CheckProgress?lessonId='+this.lessonID,requestOptions).subscribe((result)=>{
+      this.http.post<LessonBriefVM>(MyConfig.webAppUrl+'/Student/SetProgress?lessonId='+this.lessonID,null,requestOptions).subscribe((result)=>{
+      },error=>{
+      });
+    });
+
+  }
 }
