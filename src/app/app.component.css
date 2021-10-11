@@ -1,0 +1,15 @@
+#authenticationContainer{
+  margin-left:20%;
+  margin-right:20%;
+}
+
+#authenticationContainer a{
+  color:blue;
+  text-underline: blue;
+}
+
+#logoutButton{
+  border:none;
+  background: none;
+  padding:0;
+}

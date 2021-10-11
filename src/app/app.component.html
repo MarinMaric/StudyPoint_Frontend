@@ -2,7 +2,7 @@
   <div class="navbar navbar-expand-lg navbar-light bg-light" >
     <a class="nav-link" [routerLink]="['view-courses']">View Courses</a>
     <a *ngIf="user.type=='Teacher'" class="nav-link" [routerLink]="['upload-course']">Create Course</a>
-    <button class="nav-link" (click)="Logout()">Logout</button>
+    <button class="nav-link btn btn-danger" (click)="Logout()">Logout</button>
   </div>
 
 
@@ -10,16 +10,16 @@
 </div>
 <br>
 
-<div *ngIf="showRouting==false">
+<div *ngIf="showRouting==false" id="authenticationContainer">
   <form method="post" *ngIf="showLogin">
     <label>Username</label>
     <input type="text" class="form-control" [(ngModel)]="user.username" name="username"/><br>
     <label>Password</label>
-    <input type="password" class="form-control" [(ngModel)]="user.password" name="password"/>
+    <input type="password" class="form-control" [(ngModel)]="user.password" name="password"/><br>
     <button (click)="Login()" class="btn btn-primary">Login</button>
   </form>
-
-  <button (click)="RegistrationForm()" *ngIf="showLogin">Don't have an account?</button>
+<br>
+  <a (click)="RegistrationForm()" *ngIf="showLogin" class="link">Don't have an account?</a>
 
   <form method="post"  (ngSubmit)="ValidateRegistration()" *ngIf="showRegister">
     <label>Username</label>
@@ -34,16 +34,13 @@
     <label>E-mail</label>
     <input type="email" class="form-control" [(ngModel)]="registration.email" name="email"/>
     <span class="text-danger" *ngIf="result.emailMessage!=''">{{result.emailMessage}}</span><br>
-    <!--<select [(ngModel)]="registration.type" name="type"  >
-      <option value="2">I am here to: Teach</option>
-      <option value="3">I am here to: Study<option>
-      <option value="4">I am here to: Develop</option>
-    </select>-->
-    <select [(ngModel)]="registration.type" name="type" required="true">
+    <label>Select account type</label>
+    <select [(ngModel)]="registration.type" name="type" class="form-control" required="true">
       <option *ngFor="let t of accountTypes" [ngValue]="t.value" >{{t.text}}</option>
     </select>
+    <br>
     <input type="submit" class="btn btn-primary" value="Register"/>
   </form>
-
-  <button (click)="LoginForm()" *ngIf="showRegister">Already have an account? Sign in</button>
+  <br>
+  <a (click)="LoginForm()" *ngIf="showRegister" class="link">Already have an account? Sign in</a>
 </div>
