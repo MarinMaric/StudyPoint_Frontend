@@ -1,10 +1,14 @@
-<div class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="showRouting">
-  <a class="nav-link" [routerLink]="['view-courses']">View Courses</a>
-  <a *ngIf="user.type=='Teacher'" class="nav-link" [routerLink]="['upload-course']">Create Course</a>
-  <button class="nav-link" (click)="Logout()">Logout</button>
+<div *ngIf="showRouting">
+  <div class="navbar navbar-expand-lg navbar-light bg-light" >
+    <a class="nav-link" [routerLink]="['view-courses']">View Courses</a>
+    <a *ngIf="user.type=='Teacher'" class="nav-link" [routerLink]="['upload-course']">Create Course</a>
+    <button class="nav-link" (click)="Logout()">Logout</button>
+  </div>
+
+
+  <router-outlet></router-outlet>
 </div>
 <br>
-<router-outlet></router-outlet>
 
 <div *ngIf="showRouting==false">
   <form method="post" *ngIf="showLogin">

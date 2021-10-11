@@ -6,11 +6,21 @@
   <input class="form-control" type="text" [(ngModel)]="description" name="opis" required="true" />
   <span *ngIf="showError==true && (description==undefined ||description =='')" class="text-danger">Required field</span><br>
 
-  <input type="file" class="file-input" (change)="imageUpload($event)" name="file">
+  <input type="file" class="file-input" (change)="imageUpload($event)" name="file" accept=".mp4, .ogg, .webm">
   <span *ngIf="showError==true && file!=undefined" class="text-danger">Required field</span><br>
+  <div>
+
+    <div  height="30px" mode="determinate" *ngIf="uploadProgress>0">
+      File upload progress: {{uploadProgress}}%
+    </div>
+
+    <button class="cancel-upload btn btn-danger" (click)="cancelUpload()"
+              *ngIf="uploadProgress">Cancel Upload</button>
+
+  </div>
   <br>
 
-  <button (click)="onUpload()"
+  <button (click)="onUpload()" *ngIf="uploadProgress==0 || uploadProgress==undefined"
           class="btn btn-success">
     Upload
   </button>

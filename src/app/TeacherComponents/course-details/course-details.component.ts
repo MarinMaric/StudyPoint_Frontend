@@ -90,7 +90,7 @@ export class CourseDetailsComponent implements OnInit {
   }
 
   DeleteLesson(i:LessonBriefVM){
-    this.http.get(MyConfig.webAppUrl+'/Lesson/DeleteLesson?lessonId='+i.lessonId).subscribe((result)=>{
+    this.http.delete(MyConfig.webAppUrl+'/Lesson/DeleteLesson?lessonId='+i.lessonId).subscribe((result)=>{
       var indexOf=this.courseDetails.lessons.indexOf(i);
       this.courseDetails.lessons.splice(indexOf, 1);
     });

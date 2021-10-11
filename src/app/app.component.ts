@@ -21,6 +21,7 @@ export class AppComponent {
   showRouting:boolean=false;
   showLogin:boolean=false;
   showRegister:boolean=true;
+  adminMode:boolean;
 
   result:RegisterResultVM;
 
@@ -33,8 +34,15 @@ export class AppComponent {
     this.showLogin=true;
     this.showRegister=false;
     var token=localStorage.getItem("loginToken");
-    if(token!=undefined)
+    if(token!=undefined){
       this.showRouting=true;
+
+      var testType=localStorage.getItem("userType");
+      if(testType!=undefined)
+        this.user.type=testType;
+    }
+
+
     this.result=new RegisterResultVM();
     this.result.usernameMessage="";
     this.result.passwordMessage="";
@@ -55,6 +63,7 @@ export class AppComponent {
     var body = JSON.stringify(this.user);
     this.http.post<AutentifikacijaLoginResultVM>(url, body, requestOptions).subscribe((result)=>{
       localStorage.setItem("loginToken", result.tokenString);
+      localStorage.setItem("userType", result.type);
       this.showRouting=true;
       this.user.type=result.type;
     },error=>{

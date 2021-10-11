@@ -51,6 +51,8 @@ export class EditCourseComponent implements OnInit {
 
             this.loading = false;
           }
+        },error => {
+          alert("Upload failed");
         }
       );
     }

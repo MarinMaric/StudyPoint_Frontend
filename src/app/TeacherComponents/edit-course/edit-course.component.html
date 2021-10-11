@@ -8,7 +8,7 @@
 
   <img *ngIf="this.imageDisplay!=undefined" src="{{appFilePath+imageDisplay}}" width="250px" height="auto" />
   <br><br>
-  <input type="file" class="file-input" (change)="imageUpload($event)" name="file">
+  <input type="file" class="file-input" (change)="imageUpload($event)" name="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff">
   <span *ngIf="showError==true && (file!=undefined ||file.size>10485760)" class="text-danger">Image must not be larger than 10MB</span><br>
   <br>
 

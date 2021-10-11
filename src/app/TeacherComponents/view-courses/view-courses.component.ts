@@ -51,7 +51,7 @@ export class ViewCoursesComponent implements OnInit {
   }
   EditCourse(i:CourseBrief){}
   DeleteCourse(i:CourseBrief){
-    this.http.get(MyConfig.webAppUrl+'/Teacher/DeleteCourse?courseId='+i.courseId).subscribe((result)=>{
+    this.http.delete(MyConfig.webAppUrl+'/Teacher/DeleteCourse?courseId='+i.courseId).subscribe((result)=>{
       var indexOf=this.courses.indexOf(i);
       this.courses.splice(indexOf, 1);
     });

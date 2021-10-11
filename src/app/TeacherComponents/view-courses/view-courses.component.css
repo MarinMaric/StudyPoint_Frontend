@@ -9,3 +9,8 @@ word-wrap:break-word;
 .button{
   margin-left: 5px;
 }
+
+#search-wrapper{
+  margin-top: 20px;
+  margin-left:20px;
+}
