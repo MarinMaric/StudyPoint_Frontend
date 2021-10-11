@@ -1,4 +1,9 @@
 <form>
+  <br>
+  <br>
+  <h1>Upload Lesson</h1>
+  <br>
+
   <label>Title</label>
   <input class="form-control" type="text" [(ngModel)]="title" name="naziv" required="true"/>
   <span *ngIf="showError==true && (title==undefined ||title =='')" class="text-danger">Required field</span><br>
